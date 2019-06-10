@@ -100,6 +100,7 @@ class App extends React.Component {
     let count = this.state.newsStart - 1;
     const news = Object.keys(indexOfStories).map(
       (item, index) => (
+         // eslint-disable-next-line
         count++,
         <NewsItem newsInfo={indexOfStories[item]} key={index} index={count} />
       )
