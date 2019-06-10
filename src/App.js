@@ -29,7 +29,7 @@ class App extends React.Component {
 
   getStories = storyId => {
     // pass in storie id
-    // call to api with ids 
+    // call to api with ids
     // update state with new stories
     const stories = [];
 
@@ -67,7 +67,7 @@ class App extends React.Component {
     this.setState({
       counter: counter + 1
     });
-    
+
     // check more btn total clicks
     // update range of stories to show
     if (counter < totalPages) {
@@ -111,7 +111,9 @@ class App extends React.Component {
           <h2 className="top-stories__header__title">Hacker News</h2>
         </div>
         <div className="top-stories__news">{news}</div>
-        <div onClick={this.loadMore}>More</div>
+        <div className="top-stories__more" onClick={this.loadMore}>
+          More
+        </div>
       </div>
     );
   }

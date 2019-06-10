@@ -9,7 +9,7 @@
   padding-right: 10px;
 
   &__header {
-    background-color: #ff6600;
+    background-color: $primary;
     padding: 5px;
     &__title {
       font-weight: bold;
@@ -19,6 +19,11 @@
   &__news {
     background-color: $secondary;
     padding: 5px;
+  }
+  &__more {
+    background-color: $secondary;
+    padding: 5px;
+    cursor: pointer;
   }
 }
 
