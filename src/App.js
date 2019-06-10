@@ -8,10 +8,13 @@ class App extends React.Component {
     newsIds: [],
     stories: [],
     newsStart: 0,
-    newsEnd: 30
+    newsEnd: 30,
+    counter: 0
   };
 
   componentDidMount() {
+    // gather story ids
+    // call to get new stories with ids passed in
     axios
       .get(`https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty`)
       .then(res => {
@@ -25,6 +28,9 @@ class App extends React.Component {
   }
 
   getStories = storyId => {
+    // pass in storie id
+    // call to api with ids 
+    // update state with new stories
     const stories = [];
 
     for (let i = 0; i < storyId.length; i++) {
@@ -53,13 +59,18 @@ class App extends React.Component {
     let newsStart = this.state.newsStart;
     let newsEnd = this.state.newsEnd;
     const perPage = 30;
-    let count = 1;
-    count++;
-    // how many pages
-    const totalPages = totalItems / perPage;
+    let counter = this.state.counter;
 
-    if (count < totalPages) {
-      count++;
+    // calc number pages
+    const totalPages = Math.floor(totalItems / perPage);
+
+    this.setState({
+      counter: counter + 1
+    });
+    
+    // check more btn total clicks
+    // update range of stories to show
+    if (counter < totalPages) {
       newsStart += perPage + 1;
       newsEnd += perPage + 1;
 
@@ -68,28 +79,28 @@ class App extends React.Component {
         newsEnd
       });
     } else {
-      count = totalPages;
+      // end reached - reset to start
+      this.setState({
+        newsStart: 0,
+        newsEnd: perPage,
+        counter: 0
+      });
     }
-
-    // 30 on each page
-    // first 0 - 30
-    // 2nd 31 - 61
-    // 3rd 62 - 92
-    // 4th 93 - 123
-    console.log(totalPages);
   };
 
   render() {
+    // get section of stories
     const indexOfStories = this.state.stories.slice(
       this.state.newsStart,
       this.state.newsEnd
     );
-    console.log(indexOfStories);
-
-    let count =  this.state.newsStart -1;
+    // loop through stories
+    // pass data to child
+    // keep track of index for story count
+    let count = this.state.newsStart - 1;
     const news = Object.keys(indexOfStories).map(
       (item, index) => (
-        (count ++),
+        count++,
         <NewsItem newsInfo={indexOfStories[item]} key={index} index={count} />
       )
     );
